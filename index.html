@@ -1,129 +1,818 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Collab Business</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Memevores Ideas</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: white;
-    }
+<script src="https://cdn.tailwindcss.com"></script>
 
-    header {
-      text-align: center;
-      padding: 20px;
-      font-size: 28px;
-      font-weight: bold;
-      background: rgba(0,0,0,0.3);
-      backdrop-filter: blur(10px);
-    }
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"/>
 
-    #chatBox {
-      height: 70vh;
-      overflow-y: auto;
-      padding: 15px;
-    }
+<style>
 
-    .msg {
-      margin: 10px 0;
-      padding: 10px;
-      border-radius: 10px;
-      background: rgba(255,255,255,0.1);
-      width: fit-content;
-      max-width: 70%;
-    }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap');
 
-    .me {
-      background: #00c6ff;
-      color: black;
-      margin-left: auto;
-    }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
 
-    .user {
-      background: rgba(255,255,255,0.2);
-    }
+body{
+font-family:'Poppins',sans-serif;
+background:#050505;
+color:white;
+overflow-x:hidden;
+}
 
-    #inputArea {
-      display: flex;
-      padding: 10px;
-      background: rgba(0,0,0,0.3);
-    }
+.title-font{
+font-family:'Space Grotesk',sans-serif;
+}
 
-    input {
-      flex: 1;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      outline: none;
-    }
+.meme-card{
+transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
 
-    button {
-      margin-left: 10px;
-      padding: 10px 20px;
-      border: none;
-      background: #00c6ff;
-      color: black;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-  </style>
+.meme-card:hover{
+transform:translateY(-4px);
+border-color:#7c3aed;
+box-shadow:0 0 30px rgba(124,58,237,0.15);
+}
+
+.floating-btn{
+transition:0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+.floating-btn:hover{
+transform:scale(1.08) rotate(90deg);
+}
+
+.glow-green{
+box-shadow:
+0 0 10px #22c55e,
+0 0 20px #22c55e;
+}
+
+.glow-blue{
+box-shadow:
+0 0 10px #38bdf8,
+0 0 20px #38bdf8;
+}
+
+.modal-animate{
+animation:popup 0.25s ease;
+}
+
+@keyframes popup{
+
+from{
+opacity:0;
+transform:scale(0.85);
+}
+
+to{
+opacity:1;
+transform:scale(1);
+}
+
+}
+
+</style>
 </head>
 
-<body>
+<body class="min-h-screen pb-24">
 
-<header>🚀 Collab Business</header>
+<!-- MAIN PAGE -->
 
-<div id="chatBox"></div>
+<div id="main-page" class="max-w-5xl mx-auto px-4 py-8">
 
-<div id="inputArea">
-  <input id="msg" placeholder="Type your message..." />
-  <button onclick="send()">Send</button>
+<!-- HEADER -->
+
+<div class="flex justify-between items-center border-b border-zinc-800 pb-6 mb-10">
+
+<div class="flex items-center gap-3">
+
+<div>
+
+<h1 class="title-font text-5xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-sky-500 to-violet-500 bg-clip-text text-transparent flex items-start">
+
+MEMEVORES
+
+<button onclick="openRejectedPage()"
+class="ml-2 mt-1 w-6 h-6 rounded-full bg-red-500/20 text-red-400 text-xs flex items-center justify-center hover:bg-red-500/30 transition shadow-[0_0_12px_rgba(239,68,68,0.7)]">
+
++
+
+</button>
+
+</h1>
+
+<p class="text-zinc-400 mt-2 text-lg">
+Food For Memevores🔪
+</p>
+
 </div>
 
-<script src="/socket.io/socket.io.js"></script>
+</div>
+
+<div>
+<p class="text-emerald-400 text-sm font-medium">
+Manifesting 50k 
+</p>
+</div>
+
+</div>
+
+<!-- IDEAS -->
+
+<div id="ideas-grid" class="flex flex-col gap-5"></div>
+
+<!-- EMPTY -->
+
+<div id="empty-state"
+class="hidden flex flex-col items-center justify-center py-24 text-center">
+
+<div class="w-24 h-24 rounded-3xl bg-zinc-900 flex items-center justify-center text-5xl mb-6">
+🤔
+</div>
+
+<h2 class="text-2xl text-zinc-300 font-semibold mb-2">
+No Meme Ideas Yet
+</h2>
+
+<p class="text-zinc-500">
+Click the + button and start cooking
+</p>
+
+</div>
+
+</div>
+
+<!-- REJECTED PAGE -->
+
+<div id="rejected-page"
+class="hidden min-h-screen bg-black text-white px-4 py-8">
+
+<div class="max-w-5xl mx-auto">
+
+<div class="flex items-center justify-between border-b border-red-900 pb-6 mb-10">
+
+<div>
+
+<h1 class="title-font text-5xl font-bold bg-gradient-to-r from-red-700 via-red-500 to-red-300 bg-clip-text text-transparent">
+REJECTED MEMES
+</h1>
+
+<p class="text-red-400 mt-2">
+The graveyard of abandoned ideas
+</p>
+
+</div>
+
+<button onclick="closeRejectedPage()"
+class="px-5 py-3 rounded-2xl bg-red-900/30 border border-red-700 hover:bg-red-800/40 transition">
+
+Back
+
+</button>
+
+</div>
+
+<div id="rejected-grid"
+class="flex flex-col gap-5"></div>
+
+<div id="rejected-empty"
+class="hidden flex flex-col items-center justify-center py-24 text-center">
+
+<div class="text-6xl mb-6">🥷</div>
+
+<h2 class="text-3xl font-semibold text-red-300 mb-3">
+  knight Vores
+</h2>
+
+<p class="text-red-500">
+Think Twice before uploading
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- FLOATING BUTTON -->
+
+<button onclick="showAddModal()"
+class="floating-btn fixed bottom-8 right-8 w-16 h-16 rounded-3xl bg-gradient-to-br from-violet-600 to-pink-600 flex items-center justify-center text-3xl shadow-2xl border border-white/10">
+
+<i class="fa-solid fa-plus"></i>
+
+</button>
+
+<!-- ADD MODAL -->
+
+<div id="add-modal"
+class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+
+<div class="modal-animate bg-zinc-900 border border-zinc-700 rounded-3xl p-8 w-full max-w-xl">
+
+<h2 class="title-font text-3xl font-bold mb-8">
+New Meme Idea
+</h2>
+
+<div class="mb-6">
+
+<label class="block text-sm text-zinc-400 mb-3">
+MEME IDEA
+</label>
+
+<textarea id="meme-input"
+rows="5"
+placeholder="Write your meme idea..."
+class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 text-lg resize-none focus:outline-none focus:border-violet-500"></textarea>
+
+</div>
+
+<div class="mb-8">
+
+<label class="block text-sm text-zinc-400 mb-3">
+SONG / AUDIO
+</label>
+
+<div class="relative">
+
+<i class="fa-solid fa-music absolute left-5 top-5 text-zinc-500"></i>
+
+<input id="song-input"
+type="text"
+placeholder="Optional song..."
+class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl pl-12 pr-5 py-4 focus:outline-none focus:border-violet-500"/>
+
+</div>
+
+</div>
+
+<div class="flex gap-4">
+
+<button onclick="hideAddModal()"
+class="flex-1 py-4 rounded-2xl border border-zinc-700 hover:bg-zinc-800 transition font-medium">
+Cancel
+</button>
+
+<button onclick="saveIdea()"
+class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-pink-600 font-semibold hover:brightness-110 transition-all">
+Save Idea
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- VIEW MODAL -->
+
+<div id="view-modal"
+class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+
+<div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 w-full max-w-2xl modal-animate">
+
+<h2 class="title-font text-3xl font-bold mb-6">
+Full Meme Idea
+</h2>
+
+<p id="view-text"
+class="text-zinc-200 text-lg leading-relaxed whitespace-pre-wrap break-words"></p>
+
+<button onclick="closeViewModal()"
+class="mt-8 w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-pink-600 font-semibold">
+Close
+</button>
+
+</div>
+
+</div>
+
+<!-- EDIT MODAL -->
+
+<div id="edit-modal"
+class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+
+<div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 w-full max-w-2xl modal-animate">
+
+<div class="flex justify-between items-center mb-6">
+
+<h2 class="title-font text-3xl font-bold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
+Edit Meme Idea
+</h2>
+
+<button onclick="rejectCurrentIdea()"
+class="w-12 h-12 rounded-2xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition text-xl shadow-[0_0_20px_rgba(239,68,68,0.7)]">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+<textarea id="edit-textarea"
+rows="8"
+class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 text-lg resize-none focus:outline-none focus:border-sky-500 text-zinc-100"></textarea>
+
+<div class="flex gap-4 mt-8">
+
+<button onclick="closeEditModal()"
+class="flex-1 py-4 rounded-2xl border border-zinc-700 hover:bg-zinc-800 transition font-medium">
+Cancel
+</button>
+
+<button onclick="saveEditedIdea()"
+class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-sky-500 to-cyan-500 font-semibold hover:brightness-110 transition-all">
+Save Changes
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- REJECTED VIEW MODAL -->
+
+<div id="rejected-view-modal"
+class="hidden fixed inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+
+<div class="bg-zinc-950 border border-red-900 rounded-3xl p-8 w-full max-w-2xl modal-animate shadow-[0_0_40px_rgba(127,29,29,0.45)]">
+
+<h2 class="title-font text-3xl font-bold mb-6 bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent">
+Rejected Meme
+</h2>
+
+<p id="rejected-view-text"
+class="text-red-100 text-lg leading-relaxed whitespace-pre-wrap break-words"></p>
+
+<button onclick="closeRejectedViewModal()"
+class="mt-8 w-full py-4 rounded-2xl bg-gradient-to-r from-red-700 to-red-500 font-semibold">
+Close
+</button>
+
+</div>
+
+</div>
+
+<!-- REJECTED EDIT MODAL -->
+
+<div id="rejected-edit-modal"
+class="hidden fixed inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+
+<div class="bg-zinc-950 border border-red-900 rounded-3xl p-8 w-full max-w-2xl modal-animate shadow-[0_0_40px_rgba(127,29,29,0.45)]">
+
+<h2 class="title-font text-3xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+Edit Rejected Meme
+</h2>
+
+<textarea id="rejected-edit-textarea"
+rows="8"
+class="w-full bg-black border border-red-900 rounded-2xl px-5 py-4 text-lg resize-none focus:outline-none focus:border-red-500 text-red-100"></textarea>
+
+<div class="flex gap-4 mt-8">
+
+<button onclick="closeRejectedEditModal()"
+class="flex-1 py-4 rounded-2xl border border-red-900 hover:bg-red-950 transition font-medium text-red-300">
+Cancel
+</button>
+
+<button onclick="saveRejectedEditedIdea()"
+class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-red-700 to-orange-500 font-semibold hover:brightness-110 transition-all">
+Save Changes
+</button>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
-  const socket = io();
-  const chatBox = document.getElementById("chatBox");
 
-  const myId = Math.random().toString(36).substring(7);
+let ideas =
+JSON.parse(localStorage.getItem('memeIdeas')) || [];
 
-  function addMessage(data) {
-    const div = document.createElement("div");
-    div.classList.add("msg");
+let rejectedIdeas =
+JSON.parse(localStorage.getItem('rejectedIdeas')) || [];
 
-    if (data.id === myId) {
-      div.classList.add("me");
-    } else {
-      div.classList.add("user");
-    }
+let currentEditIndex = null;
+let currentRejectedEditIndex = null;
 
-    div.innerText = `User-${data.id.slice(0,4)}: ${data.text}`;
-    chatBox.appendChild(div);
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }
+function saveToLocalStorage(){
 
-  socket.on("loadMessages", (msgs) => {
-    msgs.forEach(addMessage);
-  });
+localStorage.setItem(
+'memeIdeas',
+JSON.stringify(ideas)
+);
 
-  socket.on("receiveMessage", (data) => {
-    addMessage(data);
-  });
+localStorage.setItem(
+'rejectedIdeas',
+JSON.stringify(rejectedIdeas)
+);
 
-  function send() {
-    const input = document.getElementById("msg");
-    if (input.value.trim() === "") return;
+}
 
-    socket.emit("sendMessage", {
-      id: myId,
-      text: input.value
-    });
+function renderIdeas(){
 
-    input.value = "";
-  }
+const grid =
+document.getElementById('ideas-grid');
+
+const empty =
+document.getElementById('empty-state');
+
+grid.innerHTML = '';
+
+if(ideas.length === 0){
+
+empty.classList.remove('hidden');
+return;
+
+}
+
+empty.classList.add('hidden');
+
+ideas.forEach((idea,index)=>{
+
+const card = document.createElement('div');
+
+card.className =
+`meme-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6 w-full`;
+
+card.innerHTML = `
+
+<div class="flex justify-between items-start gap-5">
+
+<div class="flex-1">
+
+<div class="text-xs uppercase tracking-widest text-zinc-500 mb-4">
+IDEA #${index + 1}
+</div>
+
+<p onclick="openViewModal(${index})"
+class="text-zinc-100 text-[17px] leading-relaxed break-words mb-5 cursor-pointer overflow-hidden"
+style="
+display:-webkit-box;
+-webkit-line-clamp:2;
+-webkit-box-orient:vertical;
+">
+${idea.text}
+</p>
+
+${idea.song ? `
+<div class="inline-flex items-center gap-3 bg-zinc-800 rounded-2xl px-4 py-3">
+
+<i class="fa-solid fa-music text-pink-400"></i>
+
+<div class="text-sm text-zinc-300">
+${idea.song}
+</div>
+
+</div>
+` : ''}
+
+</div>
+
+<div class="flex flex-col gap-3">
+
+<button onclick="completeIdea(${index})"
+class="glow-green w-[42px] h-[42px] rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition text-[15px] flex items-center justify-center">
+
+<i class="fa-solid fa-check"></i>
+
+</button>
+
+<button onclick="openEditModal(${index})"
+class="glow-blue w-[42px] h-[42px] rounded-xl bg-sky-500/10 text-sky-400 hover:bg-sky-500/20 transition text-[15px] flex items-center justify-center">
+
+<i class="fa-solid fa-pen"></i>
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+grid.appendChild(card);
+
+});
+
+}
+
+function renderRejectedIdeas(){
+
+const grid =
+document.getElementById('rejected-grid');
+
+const empty =
+document.getElementById('rejected-empty');
+
+grid.innerHTML = '';
+
+if(rejectedIdeas.length === 0){
+
+empty.classList.remove('hidden');
+return;
+
+}
+
+empty.classList.add('hidden');
+
+rejectedIdeas.forEach((idea,index)=>{
+
+const card = document.createElement('div');
+
+card.className =
+'bg-zinc-950 border border-red-900 rounded-3xl p-6 shadow-[0_0_25px_rgba(127,29,29,0.4)] transition hover:shadow-[0_0_35px_rgba(220,38,38,0.45)]';
+
+card.innerHTML = `
+
+<div class="flex justify-between items-start gap-5">
+
+<div class="flex-1">
+
+<div class="text-xs uppercase tracking-widest text-red-500 mb-4">
+REJECTED IDEA #${index + 1}
+</div>
+
+<p onclick="openRejectedViewModal(${index})"
+class="text-red-100 text-[17px] leading-relaxed break-words mb-5 cursor-pointer overflow-hidden"
+style="
+display:-webkit-box;
+-webkit-line-clamp:2;
+-webkit-box-orient:vertical;
+">
+${idea.text}
+</p>
+
+${idea.song ? `
+<div class="inline-flex items-center gap-3 bg-red-950 rounded-2xl px-4 py-3">
+
+<i class="fa-solid fa-music text-red-400"></i>
+
+<div class="text-sm text-red-200">
+${idea.song}
+</div>
+
+</div>
+` : ''}
+
+</div>
+
+<div class="flex flex-col gap-3">
+
+<button onclick="deleteRejectedIdea(${index})"
+class="w-[42px] h-[42px] rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition text-[15px] flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.6)]">
+
+<i class="fa-solid fa-check"></i>
+
+</button>
+
+<button onclick="openRejectedEditModal(${index})"
+class="w-[42px] h-[42px] rounded-xl bg-orange-500/10 text-orange-300 hover:bg-orange-500/20 transition text-[15px] flex items-center justify-center shadow-[0_0_15px_rgba(251,146,60,0.5)]">
+
+<i class="fa-solid fa-pen"></i>
+
+</button>
+
+</div>
+
+</div>
+
+`;
+
+grid.appendChild(card);
+
+});
+
+}
+
+function showAddModal(){
+document.getElementById('meme-input').value = '';
+document.getElementById('song-input').value = '';
+document.getElementById('add-modal').classList.remove('hidden');
+}
+
+function hideAddModal(){
+document.getElementById('add-modal').classList.add('hidden');
+}
+
+function saveIdea(){
+
+const text =
+document.getElementById('meme-input').value.trim();
+
+const song =
+document.getElementById('song-input').value.trim();
+
+if(!text) return;
+
+ideas.unshift({
+text:text,
+song:song,
+date:new Date().toISOString()
+});
+
+saveToLocalStorage();
+renderIdeas();
+hideAddModal();
+
+}
+
+function completeIdea(index){
+
+ideas.splice(index,1);
+
+saveToLocalStorage();
+
+renderIdeas();
+
+}
+
+function openViewModal(index){
+
+document.getElementById('view-text').innerText =
+ideas[index].text;
+
+document.getElementById('view-modal')
+.classList.remove('hidden');
+
+}
+
+function closeViewModal(){
+document.getElementById('view-modal')
+.classList.add('hidden');
+}
+
+function openEditModal(index){
+
+currentEditIndex = index;
+
+document.getElementById('edit-textarea').value =
+ideas[index].text;
+
+document.getElementById('edit-modal')
+.classList.remove('hidden');
+
+}
+
+function closeEditModal(){
+document.getElementById('edit-modal')
+.classList.add('hidden');
+}
+
+function saveEditedIdea(){
+
+const editedText =
+document.getElementById('edit-textarea')
+.value.trim();
+
+if(!editedText) return;
+
+ideas[currentEditIndex].text =
+editedText;
+
+saveToLocalStorage();
+
+renderIdeas();
+
+closeEditModal();
+
+}
+
+function rejectCurrentIdea(){
+
+const rejected =
+ideas[currentEditIndex];
+
+rejectedIdeas.unshift(rejected);
+
+ideas.splice(currentEditIndex,1);
+
+saveToLocalStorage();
+
+renderIdeas();
+
+renderRejectedIdeas();
+
+closeEditModal();
+
+}
+
+function openRejectedPage(){
+
+document.getElementById('main-page')
+.classList.add('hidden');
+
+document.getElementById('rejected-page')
+.classList.remove('hidden');
+
+renderRejectedIdeas();
+
+}
+
+function closeRejectedPage(){
+
+document.getElementById('main-page')
+.classList.remove('hidden');
+
+document.getElementById('rejected-page')
+.classList.add('hidden');
+
+}
+
+function openRejectedViewModal(index){
+
+document.getElementById('rejected-view-text')
+.innerText = rejectedIdeas[index].text;
+
+document.getElementById('rejected-view-modal')
+.classList.remove('hidden');
+
+}
+
+function closeRejectedViewModal(){
+
+document.getElementById('rejected-view-modal')
+.classList.add('hidden');
+
+}
+
+function openRejectedEditModal(index){
+
+currentRejectedEditIndex = index;
+
+document.getElementById('rejected-edit-textarea').value =
+rejectedIdeas[index].text;
+
+document.getElementById('rejected-edit-modal')
+.classList.remove('hidden');
+
+}
+
+function closeRejectedEditModal(){
+
+document.getElementById('rejected-edit-modal')
+.classList.add('hidden');
+
+}
+
+function saveRejectedEditedIdea(){
+
+const editedText =
+document.getElementById('rejected-edit-textarea')
+.value.trim();
+
+if(!editedText) return;
+
+rejectedIdeas[currentRejectedEditIndex].text =
+editedText;
+
+saveToLocalStorage();
+
+renderRejectedIdeas();
+
+closeRejectedEditModal();
+
+}
+
+function deleteRejectedIdea(index){
+
+rejectedIdeas.splice(index,1);
+
+saveToLocalStorage();
+
+renderRejectedIdeas();
+
+}
+
+document.addEventListener('keydown',function(e){
+
+if(e.key === 'Escape'){
+
+hideAddModal();
+closeViewModal();
+closeEditModal();
+closeRejectedViewModal();
+closeRejectedEditModal();
+
+}
+
+});
+
+window.onload = function(){
+renderIdeas();
+}
+
 </script>
 
 </body>
