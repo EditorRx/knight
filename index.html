@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 <title>Memevores Ideas</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -79,7 +81,57 @@ transform:scale(1);
 
 }
 
+.counter-box{
+padding:14px 20px;
+border-radius:20px;
+background:#111111;
+border:1px solid #27272a;
+box-shadow:0 0 25px rgba(56,189,248,0.12);
+min-width:140px;
+}
+
+.counter-red{
+padding:14px 20px;
+border-radius:20px;
+background:#0d0505;
+border:1px solid #450a0a;
+box-shadow:0 0 25px rgba(239,68,68,0.18);
+min-width:160px;
+}
+
+.search-input{
+width:100%;
+background:#111111;
+border:1px solid #27272a;
+border-radius:20px;
+padding:16px 20px 16px 50px;
+outline:none;
+transition:0.25s;
+}
+
+.search-input:focus{
+border-color:#38bdf8;
+box-shadow:0 0 20px rgba(56,189,248,0.15);
+}
+
+.search-red{
+width:100%;
+background:#120707;
+border:1px solid #450a0a;
+border-radius:20px;
+padding:16px 20px 16px 50px;
+outline:none;
+transition:0.25s;
+color:white;
+}
+
+.search-red:focus{
+border-color:#ef4444;
+box-shadow:0 0 20px rgba(239,68,68,0.2);
+}
+
 </style>
+
 </head>
 
 <body class="min-h-screen pb-24">
@@ -119,8 +171,43 @@ Food For Memevores🔪
 
 <div>
 <p class="text-emerald-400 text-sm font-medium">
-Manifesting 50k 
+Manifesting 50k
 </p>
+</div>
+
+</div>
+
+<!-- SEARCH + COUNTER -->
+
+<div class="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
+
+<div class="relative w-full">
+
+<i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500"></i>
+
+<input
+id="search-input"
+type="text"
+placeholder="Search meme ideas..."
+oninput="renderIdeas()"
+class="search-input"
+/>
+
+</div>
+
+<div class="counter-box">
+
+<p class="text-sm text-zinc-400">
+Meme Count
+</p>
+
+<h3 id="meme-counter"
+class="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+
+0
+
+</h3>
+
 </div>
 
 </div>
@@ -180,6 +267,41 @@ Back
 
 </div>
 
+<!-- REJECTED SEARCH + COUNTER -->
+
+<div class="flex flex-col md:flex-row gap-4 items-center justify-between mb-8">
+
+<div class="relative w-full">
+
+<i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-red-500"></i>
+
+<input
+id="rejected-search-input"
+type="text"
+placeholder="Search rejected memes..."
+oninput="renderRejectedIdeas()"
+class="search-red"
+/>
+
+</div>
+
+<div class="counter-red">
+
+<p class="text-sm text-red-400">
+Rejected Count
+</p>
+
+<h3 id="rejected-counter"
+class="text-3xl font-bold bg-gradient-to-r from-red-500 to-orange-400 bg-clip-text text-transparent">
+
+0
+
+</h3>
+
+</div>
+
+</div>
+
 <div id="rejected-grid"
 class="flex flex-col gap-5"></div>
 
@@ -189,7 +311,7 @@ class="hidden flex flex-col items-center justify-center py-24 text-center">
 <div class="text-6xl mb-6">🥷</div>
 
 <h2 class="text-3xl font-semibold text-red-300 mb-3">
-  knight Vores
+KnightVores
 </h2>
 
 <p class="text-red-500">
@@ -258,12 +380,16 @@ class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl pl-12 pr-5 py-4 foc
 
 <button onclick="hideAddModal()"
 class="flex-1 py-4 rounded-2xl border border-zinc-700 hover:bg-zinc-800 transition font-medium">
+
 Cancel
+
 </button>
 
 <button onclick="saveIdea()"
 class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-pink-600 font-semibold hover:brightness-110 transition-all">
+
 Save Idea
+
 </button>
 
 </div>
@@ -288,7 +414,9 @@ class="text-zinc-200 text-lg leading-relaxed whitespace-pre-wrap break-words"></
 
 <button onclick="closeViewModal()"
 class="mt-8 w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-pink-600 font-semibold">
+
 Close
+
 </button>
 
 </div>
@@ -305,7 +433,9 @@ class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justi
 <div class="flex justify-between items-center mb-6">
 
 <h2 class="title-font text-3xl font-bold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
+
 Edit Meme Idea
+
 </h2>
 
 <button onclick="rejectCurrentIdea()"
@@ -325,12 +455,16 @@ class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 text-lg r
 
 <button onclick="closeEditModal()"
 class="flex-1 py-4 rounded-2xl border border-zinc-700 hover:bg-zinc-800 transition font-medium">
+
 Cancel
+
 </button>
 
 <button onclick="saveEditedIdea()"
 class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-sky-500 to-cyan-500 font-semibold hover:brightness-110 transition-all">
+
 Save Changes
+
 </button>
 
 </div>
@@ -347,7 +481,9 @@ class="hidden fixed inset-0 bg-black/85 backdrop-blur-xl flex items-center justi
 <div class="bg-zinc-950 border border-red-900 rounded-3xl p-8 w-full max-w-2xl modal-animate shadow-[0_0_40px_rgba(127,29,29,0.45)]">
 
 <h2 class="title-font text-3xl font-bold mb-6 bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent">
+
 Rejected Meme
+
 </h2>
 
 <p id="rejected-view-text"
@@ -355,7 +491,9 @@ class="text-red-100 text-lg leading-relaxed whitespace-pre-wrap break-words"></p
 
 <button onclick="closeRejectedViewModal()"
 class="mt-8 w-full py-4 rounded-2xl bg-gradient-to-r from-red-700 to-red-500 font-semibold">
+
 Close
+
 </button>
 
 </div>
@@ -370,7 +508,9 @@ class="hidden fixed inset-0 bg-black/85 backdrop-blur-xl flex items-center justi
 <div class="bg-zinc-950 border border-red-900 rounded-3xl p-8 w-full max-w-2xl modal-animate shadow-[0_0_40px_rgba(127,29,29,0.45)]">
 
 <h2 class="title-font text-3xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+
 Edit Rejected Meme
+
 </h2>
 
 <textarea id="rejected-edit-textarea"
@@ -381,12 +521,16 @@ class="w-full bg-black border border-red-900 rounded-2xl px-5 py-4 text-lg resiz
 
 <button onclick="closeRejectedEditModal()"
 class="flex-1 py-4 rounded-2xl border border-red-900 hover:bg-red-950 transition font-medium text-red-300">
+
 Cancel
+
 </button>
 
 <button onclick="saveRejectedEditedIdea()"
 class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-red-700 to-orange-500 font-semibold hover:brightness-110 transition-all">
+
 Save Changes
+
 </button>
 
 </div>
@@ -405,7 +549,6 @@ JSON.parse(localStorage.getItem('rejectedIdeas')) || [];
 
 let currentEditIndex = null;
 let currentRejectedEditIndex = null;
-
 function saveToLocalStorage(){
 
 localStorage.setItem(
@@ -428,9 +571,22 @@ document.getElementById('ideas-grid');
 const empty =
 document.getElementById('empty-state');
 
+const counter =
+document.getElementById('meme-counter');
+
+const search =
+document.getElementById('search-input')?.value.toLowerCase() || '';
+
 grid.innerHTML = '';
 
-if(ideas.length === 0){
+const filteredIdeas = ideas.filter(idea =>
+idea.text.toLowerCase().includes(search) ||
+idea.song.toLowerCase().includes(search)
+);
+
+counter.innerText = filteredIdeas.length;
+
+if(filteredIdeas.length === 0){
 
 empty.classList.remove('hidden');
 return;
@@ -439,7 +595,9 @@ return;
 
 empty.classList.add('hidden');
 
-ideas.forEach((idea,index)=>{
+filteredIdeas.forEach((idea,index)=>{
+
+const realIndex = ideas.indexOf(idea);
 
 const card = document.createElement('div');
 
@@ -453,10 +611,10 @@ card.innerHTML = `
 <div class="flex-1">
 
 <div class="text-xs uppercase tracking-widest text-zinc-500 mb-4">
-IDEA #${index + 1}
+IDEA #${realIndex + 1}
 </div>
 
-<p onclick="openViewModal(${index})"
+<p onclick="openViewModal(${realIndex})"
 class="text-zinc-100 text-[17px] leading-relaxed break-words mb-5 cursor-pointer overflow-hidden"
 style="
 display:-webkit-box;
@@ -482,14 +640,14 @@ ${idea.song}
 
 <div class="flex flex-col gap-3">
 
-<button onclick="completeIdea(${index})"
+<button onclick="completeIdea(${realIndex})"
 class="glow-green w-[42px] h-[42px] rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition text-[15px] flex items-center justify-center">
 
 <i class="fa-solid fa-check"></i>
 
 </button>
 
-<button onclick="openEditModal(${index})"
+<button onclick="openEditModal(${realIndex})"
 class="glow-blue w-[42px] h-[42px] rounded-xl bg-sky-500/10 text-sky-400 hover:bg-sky-500/20 transition text-[15px] flex items-center justify-center">
 
 <i class="fa-solid fa-pen"></i>
@@ -516,9 +674,22 @@ document.getElementById('rejected-grid');
 const empty =
 document.getElementById('rejected-empty');
 
+const counter =
+document.getElementById('rejected-counter');
+
+const search =
+document.getElementById('rejected-search-input')?.value.toLowerCase() || '';
+
 grid.innerHTML = '';
 
-if(rejectedIdeas.length === 0){
+const filteredRejected = rejectedIdeas.filter(idea =>
+idea.text.toLowerCase().includes(search) ||
+idea.song.toLowerCase().includes(search)
+);
+
+counter.innerText = filteredRejected.length;
+
+if(filteredRejected.length === 0){
 
 empty.classList.remove('hidden');
 return;
@@ -527,7 +698,9 @@ return;
 
 empty.classList.add('hidden');
 
-rejectedIdeas.forEach((idea,index)=>{
+filteredRejected.forEach((idea,index)=>{
+
+const realIndex = rejectedIdeas.indexOf(idea);
 
 const card = document.createElement('div');
 
@@ -541,10 +714,10 @@ card.innerHTML = `
 <div class="flex-1">
 
 <div class="text-xs uppercase tracking-widest text-red-500 mb-4">
-REJECTED IDEA #${index + 1}
+REJECTED IDEA #${realIndex + 1}
 </div>
 
-<p onclick="openRejectedViewModal(${index})"
+<p onclick="openRejectedViewModal(${realIndex})"
 class="text-red-100 text-[17px] leading-relaxed break-words mb-5 cursor-pointer overflow-hidden"
 style="
 display:-webkit-box;
@@ -570,14 +743,14 @@ ${idea.song}
 
 <div class="flex flex-col gap-3">
 
-<button onclick="deleteRejectedIdea(${index})"
+<button onclick="deleteRejectedIdea(${realIndex})"
 class="w-[42px] h-[42px] rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition text-[15px] flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.6)]">
 
 <i class="fa-solid fa-check"></i>
 
 </button>
 
-<button onclick="openRejectedEditModal(${index})"
+<button onclick="openRejectedEditModal(${realIndex})"
 class="w-[42px] h-[42px] rounded-xl bg-orange-500/10 text-orange-300 hover:bg-orange-500/20 transition text-[15px] flex items-center justify-center shadow-[0_0_15px_rgba(251,146,60,0.5)]">
 
 <i class="fa-solid fa-pen"></i>
@@ -597,13 +770,20 @@ grid.appendChild(card);
 }
 
 function showAddModal(){
+
 document.getElementById('meme-input').value = '';
 document.getElementById('song-input').value = '';
-document.getElementById('add-modal').classList.remove('hidden');
+
+document.getElementById('add-modal')
+.classList.remove('hidden');
+
 }
 
 function hideAddModal(){
-document.getElementById('add-modal').classList.add('hidden');
+
+document.getElementById('add-modal')
+.classList.add('hidden');
+
 }
 
 function saveIdea(){
@@ -623,7 +803,9 @@ date:new Date().toISOString()
 });
 
 saveToLocalStorage();
+
 renderIdeas();
+
 hideAddModal();
 
 }
@@ -649,8 +831,10 @@ document.getElementById('view-modal')
 }
 
 function closeViewModal(){
+
 document.getElementById('view-modal')
 .classList.add('hidden');
+
 }
 
 function openEditModal(index){
@@ -666,8 +850,10 @@ document.getElementById('edit-modal')
 }
 
 function closeEditModal(){
+
 document.getElementById('edit-modal')
 .classList.add('hidden');
+
 }
 
 function saveEditedIdea(){
@@ -800,9 +986,13 @@ document.addEventListener('keydown',function(e){
 if(e.key === 'Escape'){
 
 hideAddModal();
+
 closeViewModal();
+
 closeEditModal();
+
 closeRejectedViewModal();
+
 closeRejectedEditModal();
 
 }
@@ -810,7 +1000,9 @@ closeRejectedEditModal();
 });
 
 window.onload = function(){
+
 renderIdeas();
+
 }
 
 </script>
