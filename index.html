@@ -24,23 +24,31 @@ box-sizing:border-box;
 
 body{
 font-family:'Poppins',sans-serif;
-background:#050505;
-color:white;
+background:
+  radial-gradient(1200px 800px at 80% -10%, rgba(120,10,10,0.18), transparent 60%),
+  radial-gradient(900px 600px at 10% 10%, rgba(40,10,10,0.25), transparent 60%),
+  #030303;
+color:#f5f5f5;
 overflow-x:hidden;
 }
 
 .title-font{
 font-family:'Space Grotesk',sans-serif;
+letter-spacing:0.02em;
 }
 
+/* Punisher card style */
 .meme-card{
 transition:0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
 .meme-card:hover{
-transform:translateY(-4px);
-border-color:#7c3aed;
-box-shadow:0 0 30px rgba(124,58,237,0.15);
+transform:translateY(-3px);
+border-color:#7f1d1d;
+box-shadow:
+  0 0 0 1px rgba(127,29,29,0.35) inset,
+  0 10px 40px rgba(0,0,0,0.7),
+  0 0 35px rgba(220,38,38,0.18);
 }
 
 .floating-btn{
@@ -48,19 +56,24 @@ transition:0.3s cubic-bezier(0.4,0,0.2,1);
 }
 
 .floating-btn:hover{
-transform:scale(1.08) rotate(90deg);
+transform:scale(1.06);
+box-shadow:
+  0 0 0 1px rgba(220,38,38,0.5) inset,
+  0 10px 40px rgba(0,0,0,0.8),
+  0 0 35px rgba(220,38,38,0.35);
 }
 
+/* Glows → Punisher reds */
 .glow-green{
 box-shadow:
-0 0 10px #22c55e,
-0 0 20px #22c55e;
+  0 0 10px rgba(220,38,38,0.7),
+  0 0 25px rgba(220,38,38,0.35);
 }
 
 .glow-blue{
 box-shadow:
-0 0 10px #38bdf8,
-0 0 20px #38bdf8;
+  0 0 10px rgba(248,113,113,0.7),
+  0 0 25px rgba(248,113,113,0.35);
 }
 
 .modal-animate{
@@ -68,66 +81,85 @@ animation:popup 0.25s ease;
 }
 
 @keyframes popup{
-
 from{
 opacity:0;
-transform:scale(0.85);
+transform:scale(0.92);
 }
-
 to{
 opacity:1;
 transform:scale(1);
 }
-
 }
 
 .counter-box{
 padding:14px 20px;
-border-radius:20px;
-background:#111111;
-border:1px solid #27272a;
-box-shadow:0 0 25px rgba(56,189,248,0.12);
+border-radius:16px;
+background:linear-gradient(180deg, #0b0b0b, #070707);
+border:1px solid #2b1212;
+box-shadow:
+  0 0 0 1px rgba(127,29,29,0.25) inset,
+  0 10px 30px rgba(0,0,0,0.6);
 min-width:140px;
 }
 
 .counter-red{
 padding:14px 20px;
-border-radius:20px;
-background:#0d0505;
+border-radius:16px;
+background:linear-gradient(180deg, #0a0505, #060303);
 border:1px solid #450a0a;
-box-shadow:0 0 25px rgba(239,68,68,0.18);
+box-shadow:
+  0 0 0 1px rgba(220,38,38,0.25) inset,
+  0 10px 30px rgba(0,0,0,0.7);
 min-width:160px;
 }
 
 .search-input{
 width:100%;
-background:#111111;
-border:1px solid #27272a;
-border-radius:20px;
+background:linear-gradient(180deg, #0c0c0c, #080808);
+border:1px solid #2b1212;
+border-radius:16px;
 padding:16px 20px 16px 50px;
 outline:none;
 transition:0.25s;
+color:#f5f5f5;
 }
 
 .search-input:focus{
-border-color:#38bdf8;
-box-shadow:0 0 20px rgba(56,189,248,0.15);
+border-color:#dc2626;
+box-shadow:
+  0 0 0 1px rgba(220,38,38,0.35) inset,
+  0 0 25px rgba(220,38,38,0.25);
 }
 
 .search-red{
 width:100%;
-background:#120707;
+background:linear-gradient(180deg, #0b0404, #070303);
 border:1px solid #450a0a;
-border-radius:20px;
+border-radius:16px;
 padding:16px 20px 16px 50px;
 outline:none;
 transition:0.25s;
-color:white;
+color:#f5f5f5;
 }
 
 .search-red:focus{
 border-color:#ef4444;
-box-shadow:0 0 20px rgba(239,68,68,0.2);
+box-shadow:
+  0 0 0 1px rgba(239,68,68,0.35) inset,
+  0 0 25px rgba(239,68,68,0.3);
+}
+
+/* Subtle gritty borders for modals */
+.modal-border-punish{
+border:1px solid #3f1212;
+box-shadow:
+  0 0 0 1px rgba(127,29,29,0.25) inset,
+  0 20px 60px rgba(0,0,0,0.8);
+}
+
+/* Slightly harsher text contrast */
+.text-punish-strong{
+color:#ffffff;
 }
 
 </style>
@@ -142,18 +174,18 @@ box-shadow:0 0 20px rgba(239,68,68,0.2);
 
 <!-- HEADER -->
 
-<div class="flex justify-between items-center border-b border-zinc-800 pb-6 mb-10">
+<div class="flex justify-between items-center border-b border-[#2b1212] pb-6 mb-10">
 
 <div class="flex items-center gap-3">
 
 <div>
 
-<h1 class="title-font text-5xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-sky-500 to-violet-500 bg-clip-text text-transparent flex items-start">
+<h1 class="title-font text-5xl font-bold tracking-tight bg-gradient-to-r from-red-600 via-red-500 to-white bg-clip-text text-transparent flex items-start">
 
 PUNISHER
 
 <button onclick="openRejectedPage()"
-class="ml-2 mt-1 w-6 h-6 rounded-full bg-red-500/20 text-red-400 text-xs flex items-center justify-center hover:bg-red-500/30 transition shadow-[0_0_12px_rgba(239,68,68,0.7)]">
+class="ml-2 mt-1 w-6 h-6 rounded-full bg-red-600/20 text-red-400 text-xs flex items-center justify-center hover:bg-red-600/30 transition shadow-[0_0_12px_rgba(239,68,68,0.8)] border border-red-700/40">
 
 +
 
@@ -161,7 +193,7 @@ class="ml-2 mt-1 w-6 h-6 rounded-full bg-red-500/20 text-red-400 text-xs flex it
 
 </h1>
 
-<p class="text-zinc-400 mt-2 text-lg">
+<p class="text-red-300/80 mt-2 text-lg">
 Attack on YouTube
 </p>
 
@@ -170,7 +202,7 @@ Attack on YouTube
 </div>
 
 <div>
-<p class="text-emerald-400 text-sm font-medium">
+<p class="text-red-400 text-sm font-medium">
 Manifesting 10k
 </p>
 </div>
@@ -183,7 +215,7 @@ Manifesting 10k
 
 <div class="relative w-full">
 
-<i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-zinc-500"></i>
+<i class="fa-solid fa-magnifying-glass absolute left-5 top-1/2 -translate-y-1/2 text-red-500/70"></i>
 
 <input
 id="search-input"
@@ -197,12 +229,12 @@ class="search-input"
 
 <div class="counter-box">
 
-<p class="text-sm text-zinc-400">
+<p class="text-sm text-red-300/80">
 Meme Count
 </p>
 
 <h3 id="meme-counter"
-class="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-text text-transparent">
+class="text-3xl font-bold bg-gradient-to-r from-red-400 to-white bg-clip-text text-transparent">
 
 0
 
@@ -221,15 +253,15 @@ class="text-3xl font-bold bg-gradient-to-r from-cyan-400 to-violet-400 bg-clip-t
 <div id="empty-state"
 class="hidden flex flex-col items-center justify-center py-24 text-center">
 
-<div class="w-24 h-24 rounded-3xl bg-zinc-900 flex items-center justify-center text-5xl mb-6">
+<div class="w-24 h-24 rounded-3xl bg-[#0b0b0b] border border-[#2b1212] flex items-center justify-center text-5xl mb-6 shadow-[0_0_30px_rgba(0,0,0,0.7)]">
 🤔
 </div>
 
-<h2 class="text-2xl text-zinc-300 font-semibold mb-2">
+<h2 class="text-2xl text-red-200 font-semibold mb-2">
 No Meme Ideas Yet
 </h2>
 
-<p class="text-zinc-500">
+<p class="text-red-400/70">
 Click the + button and start cooking
 </p>
 
@@ -259,7 +291,7 @@ The graveyard of abandoned ideas
 </div>
 
 <button onclick="closeRejectedPage()"
-class="px-5 py-3 rounded-2xl bg-red-900/30 border border-red-700 hover:bg-red-800/40 transition">
+class="px-5 py-3 rounded-2xl bg-red-900/30 border border-red-700 hover:bg-red-800/40 transition shadow-[0_0_25px_rgba(220,38,38,0.25)]">
 
 Back
 
@@ -311,7 +343,7 @@ class="hidden flex flex-col items-center justify-center py-24 text-center">
 <div class="text-6xl mb-6">🥷</div>
 
 <h2 class="text-3xl font-semibold text-red-300 mb-3">
-KnightVores
+Punish
 </h2>
 
 <p class="text-red-500">
@@ -327,7 +359,7 @@ Think Twice before uploading
 <!-- FLOATING BUTTON -->
 
 <button onclick="showAddModal()"
-class="floating-btn fixed bottom-8 right-8 w-16 h-16 rounded-3xl bg-gradient-to-br from-violet-600 to-pink-600 flex items-center justify-center text-3xl shadow-2xl border border-white/10">
+class="floating-btn fixed bottom-8 right-8 w-16 h-16 rounded-3xl bg-gradient-to-br from-red-700 to-red-900 flex items-center justify-center text-3xl shadow-2xl border border-red-800/60">
 
 <i class="fa-solid fa-plus"></i>
 
@@ -336,41 +368,41 @@ class="floating-btn fixed bottom-8 right-8 w-16 h-16 rounded-3xl bg-gradient-to-
 <!-- ADD MODAL -->
 
 <div id="add-modal"
-class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+class="hidden fixed inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center z-50 p-4">
 
-<div class="modal-animate bg-zinc-900 border border-zinc-700 rounded-3xl p-8 w-full max-w-xl">
+<div class="modal-animate modal-border-punish bg-[#0a0a0a] rounded-3xl p-8 w-full max-w-xl">
 
-<h2 class="title-font text-3xl font-bold mb-8">
+<h2 class="title-font text-3xl font-bold mb-8 text-punish-strong">
 New Meme Idea
 </h2>
 
 <div class="mb-6">
 
-<label class="block text-sm text-zinc-400 mb-3">
+<label class="block text-sm text-red-300/80 mb-3">
 MEME IDEA
 </label>
 
 <textarea id="meme-input"
 rows="5"
 placeholder="Write your meme idea..."
-class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 text-lg resize-none focus:outline-none focus:border-violet-500"></textarea>
+class="w-full bg-[#0c0c0c] border border-[#2b1212] rounded-2xl px-5 py-4 text-lg resize-none focus:outline-none focus:border-red-600 text-[#f5f5f5] placeholder-red-300/40"></textarea>
 
 </div>
 
 <div class="mb-8">
 
-<label class="block text-sm text-zinc-400 mb-3">
+<label class="block text-sm text-red-300/80 mb-3">
 SONG / AUDIO
 </label>
 
 <div class="relative">
 
-<i class="fa-solid fa-music absolute left-5 top-5 text-zinc-500"></i>
+<i class="fa-solid fa-music absolute left-5 top-5 text-red-500/70"></i>
 
 <input id="song-input"
 type="text"
 placeholder="Optional song..."
-class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl pl-12 pr-5 py-4 focus:outline-none focus:border-violet-500"/>
+class="w-full bg-[#0c0c0c] border border-[#2b1212] rounded-2xl pl-12 pr-5 py-4 focus:outline-none focus:border-red-600 text-[#f5f5f5] placeholder-red-300/40"/>
 
 </div>
 
@@ -379,14 +411,14 @@ class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl pl-12 pr-5 py-4 foc
 <div class="flex gap-4">
 
 <button onclick="hideAddModal()"
-class="flex-1 py-4 rounded-2xl border border-zinc-700 hover:bg-zinc-800 transition font-medium">
+class="flex-1 py-4 rounded-2xl border border-[#2b1212] hover:bg-[#0f0f0f] transition font-medium text-red-200">
 
 Cancel
 
 </button>
 
 <button onclick="saveIdea()"
-class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-pink-600 font-semibold hover:brightness-110 transition-all">
+class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-red-700 to-red-900 font-semibold hover:brightness-110 transition-all text-white">
 
 Save Idea
 
@@ -401,19 +433,19 @@ Save Idea
 <!-- VIEW MODAL -->
 
 <div id="view-modal"
-class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+class="hidden fixed inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center z-50 p-4">
 
-<div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 w-full max-w-2xl modal-animate">
+<div class="modal-border-punish bg-[#0a0a0a] rounded-3xl p-8 w-full max-w-2xl modal-animate">
 
-<h2 class="title-font text-3xl font-bold mb-6">
+<h2 class="title-font text-3xl font-bold mb-6 text-punish-strong">
 Full Meme Idea
 </h2>
 
 <p id="view-text"
-class="text-zinc-200 text-lg leading-relaxed whitespace-pre-wrap break-words"></p>
+class="text-red-100 text-lg leading-relaxed whitespace-pre-wrap break-words"></p>
 
 <button onclick="closeViewModal()"
-class="mt-8 w-full py-4 rounded-2xl bg-gradient-to-r from-violet-600 to-pink-600 font-semibold">
+class="mt-8 w-full py-4 rounded-2xl bg-gradient-to-r from-red-700 to-red-900 font-semibold text-white">
 
 Close
 
@@ -426,20 +458,20 @@ Close
 <!-- EDIT MODAL -->
 
 <div id="edit-modal"
-class="hidden fixed inset-0 bg-black/80 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+class="hidden fixed inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center z-50 p-4">
 
-<div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 w-full max-w-2xl modal-animate">
+<div class="modal-border-punish bg-[#0a0a0a] rounded-3xl p-8 w-full max-w-2xl modal-animate">
 
 <div class="flex justify-between items-center mb-6">
 
-<h2 class="title-font text-3xl font-bold bg-gradient-to-r from-sky-400 to-cyan-300 bg-clip-text text-transparent">
+<h2 class="title-font text-3xl font-bold bg-gradient-to-r from-red-400 to-white bg-clip-text text-transparent">
 
 Edit Meme Idea
 
 </h2>
 
 <button onclick="rejectCurrentIdea()"
-class="w-12 h-12 rounded-2xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition text-xl shadow-[0_0_20px_rgba(239,68,68,0.7)]">
+class="w-12 h-12 rounded-2xl bg-red-600/10 text-red-400 hover:bg-red-600/20 transition text-xl shadow-[0_0_20px_rgba(239,68,68,0.7)] border border-red-700/40">
 
 <i class="fa-solid fa-xmark"></i>
 
@@ -449,19 +481,19 @@ class="w-12 h-12 rounded-2xl bg-red-500/10 text-red-400 hover:bg-red-500/20 tran
 
 <textarea id="edit-textarea"
 rows="8"
-class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-4 text-lg resize-none focus:outline-none focus:border-sky-500 text-zinc-100"></textarea>
+class="w-full bg-[#0c0c0c] border border-[#2b1212] rounded-2xl px-5 py-4 text-lg resize-none focus:outline-none focus:border-red-600 text-[#f5f5f5]"></textarea>
 
 <div class="flex gap-4 mt-8">
 
 <button onclick="closeEditModal()"
-class="flex-1 py-4 rounded-2xl border border-zinc-700 hover:bg-zinc-800 transition font-medium">
+class="flex-1 py-4 rounded-2xl border border-[#2b1212] hover:bg-[#0f0f0f] transition font-medium text-red-200">
 
 Cancel
 
 </button>
 
 <button onclick="saveEditedIdea()"
-class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-sky-500 to-cyan-500 font-semibold hover:brightness-110 transition-all">
+class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-red-600 to-red-800 font-semibold hover:brightness-110 transition-all text-white">
 
 Save Changes
 
@@ -476,9 +508,9 @@ Save Changes
 <!-- REJECTED VIEW MODAL -->
 
 <div id="rejected-view-modal"
-class="hidden fixed inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl flex items-center justify-center z-50 p-4">
 
-<div class="bg-zinc-950 border border-red-900 rounded-3xl p-8 w-full max-w-2xl modal-animate shadow-[0_0_40px_rgba(127,29,29,0.45)]">
+<div class="bg-[#070404] border border-red-900 rounded-3xl p-8 w-full max-w-2xl modal-animate shadow-[0_0_40px_rgba(127,29,29,0.55)]">
 
 <h2 class="title-font text-3xl font-bold mb-6 bg-gradient-to-r from-red-500 to-red-300 bg-clip-text text-transparent">
 
@@ -490,7 +522,7 @@ Rejected Meme
 class="text-red-100 text-lg leading-relaxed whitespace-pre-wrap break-words"></p>
 
 <button onclick="closeRejectedViewModal()"
-class="mt-8 w-full py-4 rounded-2xl bg-gradient-to-r from-red-700 to-red-500 font-semibold">
+class="mt-8 w-full py-4 rounded-2xl bg-gradient-to-r from-red-700 to-red-900 font-semibold text-white">
 
 Close
 
@@ -503,9 +535,9 @@ Close
 <!-- REJECTED EDIT MODAL -->
 
 <div id="rejected-edit-modal"
-class="hidden fixed inset-0 bg-black/85 backdrop-blur-xl flex items-center justify-center z-50 p-4">
+class="hidden fixed inset-0 bg-black/90 backdrop-blur-xl flex items-center justify-center z-50 p-4">
 
-<div class="bg-zinc-950 border border-red-900 rounded-3xl p-8 w-full max-w-2xl modal-animate shadow-[0_0_40px_rgba(127,29,29,0.45)]">
+<div class="bg-[#070404] border border-red-900 rounded-3xl p-8 w-full max-w-2xl modal-animate shadow-[0_0_40px_rgba(127,29,29,0.55)]">
 
 <h2 class="title-font text-3xl font-bold mb-6 bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
 
@@ -527,7 +559,7 @@ Cancel
 </button>
 
 <button onclick="saveRejectedEditedIdea()"
-class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-red-700 to-orange-500 font-semibold hover:brightness-110 transition-all">
+class="flex-1 py-4 rounded-2xl bg-gradient-to-r from-red-700 to-orange-600 font-semibold hover:brightness-110 transition-all text-white">
 
 Save Changes
 
@@ -602,7 +634,7 @@ const realIndex = ideas.indexOf(idea);
 const card = document.createElement('div');
 
 card.className =
-`meme-card bg-zinc-900 border border-zinc-800 rounded-3xl p-6 w-full`;
+`meme-card bg-[#0a0a0a] border border-[#2b1212] rounded-3xl p-6 w-full`;
 
 card.innerHTML = `
 
@@ -610,12 +642,12 @@ card.innerHTML = `
 
 <div class="flex-1">
 
-<div class="text-xs uppercase tracking-widest text-zinc-500 mb-4">
+<div class="text-xs uppercase tracking-widest text-red-400/70 mb-4">
 IDEA #${realIndex + 1}
 </div>
 
 <p onclick="openViewModal(${realIndex})"
-class="text-zinc-100 text-[17px] leading-relaxed break-words mb-5 cursor-pointer overflow-hidden"
+class="text-red-50 text-[17px] leading-relaxed break-words mb-5 cursor-pointer overflow-hidden"
 style="
 display:-webkit-box;
 -webkit-line-clamp:2;
@@ -625,11 +657,11 @@ ${idea.text}
 </p>
 
 ${idea.song ? `
-<div class="inline-flex items-center gap-3 bg-zinc-800 rounded-2xl px-4 py-3">
+<div class="inline-flex items-center gap-3 bg-[#0f0a0a] rounded-2xl px-4 py-3 border border-[#2b1212]">
 
-<i class="fa-solid fa-music text-pink-400"></i>
+<i class="fa-solid fa-music text-red-400"></i>
 
-<div class="text-sm text-zinc-300">
+<div class="text-sm text-red-200">
 ${idea.song}
 </div>
 
@@ -641,14 +673,14 @@ ${idea.song}
 <div class="flex flex-col gap-3">
 
 <button onclick="completeIdea(${realIndex})"
-class="glow-green w-[42px] h-[42px] rounded-xl bg-emerald-500/10 text-emerald-400 hover:bg-emerald-500/20 transition text-[15px] flex items-center justify-center">
+class="glow-green w-[42px] h-[42px] rounded-xl bg-red-600/10 text-red-400 hover:bg-red-600/20 transition text-[15px] flex items-center justify-center border border-red-700/40">
 
 <i class="fa-solid fa-check"></i>
 
 </button>
 
 <button onclick="openEditModal(${realIndex})"
-class="glow-blue w-[42px] h-[42px] rounded-xl bg-sky-500/10 text-sky-400 hover:bg-sky-500/20 transition text-[15px] flex items-center justify-center">
+class="glow-blue w-[42px] h-[42px] rounded-xl bg-red-600/10 text-red-300 hover:bg-red-600/20 transition text-[15px] flex items-center justify-center border border-red-700/40">
 
 <i class="fa-solid fa-pen"></i>
 
@@ -705,7 +737,7 @@ const realIndex = rejectedIdeas.indexOf(idea);
 const card = document.createElement('div');
 
 card.className =
-'bg-zinc-950 border border-red-900 rounded-3xl p-6 shadow-[0_0_25px_rgba(127,29,29,0.4)] transition hover:shadow-[0_0_35px_rgba(220,38,38,0.45)]';
+'bg-[#070404] border border-red-900 rounded-3xl p-6 shadow-[0_0_25px_rgba(127,29,29,0.45)] transition hover:shadow-[0_0_35px_rgba(220,38,38,0.55)]';
 
 card.innerHTML = `
 
@@ -728,7 +760,7 @@ ${idea.text}
 </p>
 
 ${idea.song ? `
-<div class="inline-flex items-center gap-3 bg-red-950 rounded-2xl px-4 py-3">
+<div class="inline-flex items-center gap-3 bg-[#0b0505] rounded-2xl px-4 py-3 border border-red-900">
 
 <i class="fa-solid fa-music text-red-400"></i>
 
@@ -744,14 +776,14 @@ ${idea.song}
 <div class="flex flex-col gap-3">
 
 <button onclick="deleteRejectedIdea(${realIndex})"
-class="w-[42px] h-[42px] rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition text-[15px] flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.6)]">
+class="w-[42px] h-[42px] rounded-xl bg-red-600/10 text-red-400 hover:bg-red-600/20 transition text-[15px] flex items-center justify-center shadow-[0_0_15px_rgba(239,68,68,0.6)] border border-red-700/40">
 
 <i class="fa-solid fa-check"></i>
 
 </button>
 
 <button onclick="openRejectedEditModal(${realIndex})"
-class="w-[42px] h-[42px] rounded-xl bg-orange-500/10 text-orange-300 hover:bg-orange-500/20 transition text-[15px] flex items-center justify-center shadow-[0_0_15px_rgba(251,146,60,0.5)]">
+class="w-[42px] h-[42px] rounded-xl bg-orange-600/10 text-orange-300 hover:bg-orange-600/20 transition text-[15px] flex items-center justify-center shadow-[0_0_15px_rgba(251,146,60,0.5)] border border-orange-700/40">
 
 <i class="fa-solid fa-pen"></i>
 
@@ -959,7 +991,6 @@ document.getElementById('rejected-edit-textarea')
 .value.trim();
 
 if(!editedText) return;
-
 rejectedIdeas[currentRejectedEditIndex].text =
 editedText;
 
